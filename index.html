@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<style type="text/css">
+		body{
+			background-image: url(https://i.pinimg.com/originals/49/b6/aa/49b6aa0898e7331b7e00f805fc3bace7.jpg);
+			font-family: Arial;
+			font-size: 20px
+		}
+		.brd {
+			border: solid 1px yellow;
+		}
+	</style>
+</head>
+<body>
+	<div class="rounded col-11 bg-success mx-auto mt-5 p-3 row">
+		<div class="rounded col-4 bg-success border" style="height: 500px;">
+			<div class="row p-2">
+				<div>
+					<h5>Ваш баланс: <span class="score"></span></h5>
+					<h5>Ваша ставка: <span class="stavka"></span></h5>
+					<h5>Ваш последний выигрыш: <span class="vygrsh"></span></h5>
+					<div class="row">
+						<button class="ml-3 btn btn-danger btn-outline-light">+100</button>
+						<button class="ml-2 btn btn-danger btn-outline-light">-100</button>
+						<button class="ml-2 btn btn-danger btn-outline-light">÷2</button>
+						<button class="ml-2 btn btn-danger btn-outline-light">All in</button>
+					</div>
+				</div>
+				<div class="ml-auto col-2"><img src="rychag.png" class="w-100 rychag"></div>
+			</div>
+		</div>
+		<div class="col-8 ml-auto pr-0">
+			<div class="rounded col-12 bg-success border pt-3 pb-3 d-flex justify-content-start">
+				<div class="rounded col-4 bg-success p-0 m-0" style="height: 501px;">
+					<div class="slot1 brd" style="height: 167px;"></div>
+					<div class="slot2 brd" style="height: 167px;"></div>
+					<div class="slot3 brd" style="height: 167px;"></div>
+				</div>
+				<div class="rounded col-4 bg-success p-0 m-0" style="height: 501px;">
+					<div class="slot1 brd"  style="height: 167px;"></div>
+					<div class="slot2 brd"  style="height: 167px;"></div>
+					<div class="slot3 brd"  style="height: 167px;"></div>
+				</div>
+				<div class="rounded col-4 bg-success p-0 m-0" style="height: 501px;">
+					<div class="slot1 brd"  style="height: 167px;"></div>
+					<div class="slot2 brd"  style="height: 167px;"></div>
+					<div class="slot3 brd" style="height: 167px;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		let slots1 = document.querySelectorAll(".slot1");
+		let slots2 = document.querySelectorAll(".slot2");
+		let slots3 = document.querySelectorAll(".slot3");
+		let png = ["url(1.png)", "url(2.png)", "url(3.png)", "url(4.png)", "url(5.png)"]
+		let rychag = document.querySelector(".rychag");
+		let vygrsh1 = document.querySelector(".vygrsh");
+		let stavka1 = document.querySelector(".stavka");
+		let score1 = document.querySelector(".score");
+		let vygrsh = 0;
+		let stavka = 0;
+		let score = 1000;
+		vygrsh1.innerHTML = vygrsh;
+		stavka1.innerHTML = stavka;
+		score1.innerHTML = score;
+
+		let btns = document.querySelectorAll(".btn");
+		
+		let random = function(){
+			let rand = Math.random() * 4;
+			let rand2 = Math.round(rand);
+			return rand2;
+		}
+		
+
+		let game = function(){
+			if (Math.sign(score + 1) > 0 && stavka > 0) {
+				stavka1.innerHTML = stavka;
+				score1.innerHTML = score;
+				vygrsh = stavka;
+				stavka = 0;
+				for (let i = 0; i < 3;i++){
+					slots1[i].style.backgroundImage = png[random()]
+					slots1[i].style.backgroundSize = "100% 100%"
+				}
+				for (let i = 0; i < 3;i++){
+					slots2[i].style.backgroundImage = png[random()]
+					slots2[i].style.backgroundSize = "100% 100%"
+				}
+				for (let i = 0; i < 3;i++){
+					slots3[i].style.backgroundImage = png[random()]
+					slots3[i].style.backgroundSize = "100% 100%"
+				}
+				for (let i = 0; i < 5;i++){
+					if (slots1[0].style.backgroundImage == `url("${i + 1}.png")` && slots1[1].style.backgroundImage == `url("${i + 1}.png")` && slots1[2].style.backgroundImage == `url("${i + 1}.png")`){
+						switch (i){
+							case 0:
+							    vygrsh = vygrsh * 1.5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							    slots1[0].style.backgroundColor = "yellow";
+							    slots1[1].style.backgroundColor = "yellow";
+							    slots1[2].style.backgroundColor = "yellow";
+							break;
+							case 1:
+							    vygrsh = vygrsh * 2;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							    slots1[0].style.backgroundColor = "yellow";
+							    slots1[1].style.backgroundColor = "yellow";
+							    slots1[2].style.backgroundColor = "yellow";
+							break;
+							case 2:
+							    vygrsh = vygrsh * 2.5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							    slots1[0].style.backgroundColor = "yellow";
+							    slots1[1].style.backgroundColor = "yellow";
+							    slots1[2].style.backgroundColor = "yellow";
+							break;
+							case 3:
+							    vygrsh = vygrsh * 3;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							    slots1[0].style.backgroundColor = "yellow";
+							    slots1[1].style.backgroundColor = "yellow";
+							    slots1[2].style.backgroundColor = "yellow";
+							break;
+							case 4:
+							    vygrsh = vygrsh * 5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							    slots1[0].style.backgroundColor = "yellow";
+							    slots1[1].style.backgroundColor = "yellow";
+							    slots1[2].style.backgroundColor = "yellow";
+							break;
+							default:
+	   							vygrsh = 0;
+						}
+					
+					}
+				}
+				for (let i = 0; i < 5;i++){
+					if (slots2[0].style.backgroundImage == `url("${i + 1}.png")` && slots2[1].style.backgroundImage == `url("${i + 1}.png")` && slots2[2].style.backgroundImage == `url("${i + 1}.png")`){
+						switch (i){
+							case 0:
+							    vygrsh = vygrsh * 1.5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 1:
+							    vygrsh = vygrsh * 2;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 2:
+							    vygrsh = vygrsh * 2.5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 3:
+							    vygrsh = vygrsh * 3;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 4:
+							    vygrsh = vygrsh * 5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							default:
+	   							vygrsh = 0;
+						}
+					}
+				}
+				for (let i = 0; i < 5;i++){
+					if (slots3[0].style.backgroundImage == `url("${i + 1}.png")` && slots3[1].style.backgroundImage == `url("${i + 1}.png")` && slots3[2].style.backgroundImage == `url("${i + 1}.png")`){
+						switch (i){
+							case 0:
+							    vygrsh = vygrsh * 1.5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 1:
+							    vygrsh = vygrsh * 2;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 2:
+							    vygrsh = vygrsh * 2.5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 3:
+							    vygrsh = vygrsh * 3;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 4:
+							    vygrsh = vygrsh * 5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							default:
+	   							vygrsh = 0;
+						}
+					
+					}
+				}
+				for (let i = 0; i < 5;i++){
+					if (slots1[2].style.backgroundImage == `url("${i + 1}.png")` && slots2[1].style.backgroundImage == `url("${i + 1}.png")` && slots3[0].style.backgroundImage == `url("${i + 1}.png")`){
+						switch (i){
+							case 0:
+							    vygrsh = vygrsh * 1.5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 1:
+							    vygrsh = vygrsh * 2;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 2:
+							    vygrsh = vygrsh * 2.5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 3:
+							    vygrsh = vygrsh * 3;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 4:
+							    vygrsh = vygrsh * 5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							default:
+	   							vygrsh = 0;
+						}
+					
+					}
+				}
+				for (let i = 0; i < 5;i++){
+					if (slots1[0].style.backgroundImage == `url("${i + 1}.png")` && slots2[1].style.backgroundImage == `url("${i + 1}.png")` && slots3[2].style.backgroundImage == `url("${i + 1}.png")`){
+						switch (i){
+							case 0:
+							    vygrsh = vygrsh * 1.5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 1:
+							    vygrsh = vygrsh * 2;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 2:
+							    vygrsh = vygrsh * 2.5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 3:
+							    vygrsh = vygrsh * 3;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 4:
+							    vygrsh = vygrsh * 5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							default:
+	   							vygrsh = 0;
+						}
+					
+					}
+				}
+				for (let i = 0; i < 5;i++){
+					if (slots1[0].style.backgroundImage == `url("${i + 1}.png")` && slots1[2].style.backgroundImage == `url("${i + 1}.png")` && slots3[1].style.backgroundImage == `url("${i + 1}.png")`){
+						switch (i){
+							case 0:
+							    vygrsh = vygrsh * 1.5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 1:
+							    vygrsh = vygrsh * 2;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 2:
+							    vygrsh = vygrsh * 2.5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 3:
+							    vygrsh = vygrsh * 3;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 4:
+							    vygrsh = vygrsh * 5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							default:
+	   							vygrsh = 0;
+						}
+					
+					}
+				}
+				for (let i = 0; i < 5;i++){
+					if (slots1[1].style.backgroundImage == `url("${i + 1}.png")` && slots3[0].style.backgroundImage == `url("${i + 1}.png")` && slots3[2].style.backgroundImage == `url("${i + 1}.png")`){
+						switch (i){
+							case 0:
+							    vygrsh = vygrsh * 1.5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 1:
+							    vygrsh = vygrsh * 2;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 2:
+							    vygrsh = vygrsh * 2.5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 3:
+							    vygrsh = vygrsh * 3;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							case 4:
+							    vygrsh = vygrsh * 5;
+							    score = score + vygrsh;
+							    vygrsh1.innerHTML = vygrsh;
+							    vygrsh = 0;
+							break;
+							default:
+	   							vygrsh = 0;
+						}
+					}
+				}
+				stavka1.innerHTML = stavka;
+				score1.innerHTML = score;
+				}
+		}
+		btns[0].onclick = function(){
+			score = score - 100;
+			stavka = stavka + 100;
+			score1.innerHTML = score;
+			stavka1.innerHTML = stavka;
+		}
+		btns[1].onclick = function(){
+			score = score + 100;
+			stavka = stavka - 100;
+			score1.innerHTML = score;
+			stavka1.innerHTML = stavka;
+		}
+		btns[2].onclick = function(){
+			score = score + stavka / 2;
+			stavka = stavka / 2;
+			score1.innerHTML = score;
+			stavka1.innerHTML = stavka;
+		}
+		btns[3].onclick = function(){
+			stavka = stavka + score;
+			score = 0;
+			score1.innerHTML = score;
+			stavka1.innerHTML = stavka;
+		}
+		game()
+		rychag.onclick = game;
+	</script>
+</body>
+</html>
